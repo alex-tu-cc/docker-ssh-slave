@@ -29,6 +29,7 @@ ARG uid=1000
 ARG gid=1000
 ARG JENKINS_AGENT_HOME=/home/${user}
 
+ENV JENKINS_USER ${user}
 ENV JENKINS_AGENT_HOME ${JENKINS_AGENT_HOME}
 
 RUN groupadd -g ${gid} ${group} \
@@ -47,9 +48,9 @@ RUN sed -i /etc/ssh/sshd_config \
         -e 's/#LogLevel.*/LogLevel INFO/' && \
     mkdir /var/run/sshd
 
-VOLUME "${JENKINS_AGENT_HOME}" "/tmp" "/run" "/var/run"
+VOLUME "${JENKINS_AGENT_HOME}"
 WORKDIR "${JENKINS_AGENT_HOME}"
 
-COPY setup-sshd /usr/local/bin/setup-sshd
+COPY setup /usr/local/bin/setup
 
-ENTRYPOINT ["setup-sshd"]
+ENTRYPOINT ["setup"]
