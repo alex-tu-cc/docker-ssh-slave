@@ -6,12 +6,14 @@ A [Jenkins](https://jenkins-ci.org) slave using SSH to establish connection.
 
 See [Jenkins Distributed builds](https://wiki.jenkins-ci.org/display/JENKINS/Distributed+builds) for more info.
 
+ - the ssh port in container is 2222
+
 ## Running
 
 To run a Docker container
 
 ```bash
-docker run jenkins/ssh-slave "<public key>"
+docker run -p 2222:2222 jenkins/ssh-slave "<public key>"
 ```
 
 You'll then be able to connect this slave using ssh-slaves-plugin as "jenkins" with the matching private key.
